@@ -32,16 +32,13 @@ router.get("/token", (req, res) => {
   
     const  headers= {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': '',
-      'Host':''
     }
   
     var encodedData = "";
     for (key in postData) {
         encodedData += encodeURIComponent(key)+"="+encodeURIComponent(postData[key])+"&";
     }
-    console.log("@@@@@@@@@@@@@@@@@@@@");
-    console.log(encodedData);
+    console.log("encodedData>> "+encodedData);
   axios
     .post("https://drchrono.com/o/token/", data=encodedData, {
         headers: headers
@@ -58,7 +55,7 @@ router.get("/token", (req, res) => {
         token_type:res.data.token_type
       });
       let p=await token.save();
-      console.log("token saved successfully"+p);
+      console.log("token saved successfully");
     })
     .catch((err) => {
       console.log("AXIOS ERROR: ", err);
