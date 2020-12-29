@@ -15,10 +15,6 @@ router.get("/redirect", (req, res) => {
   res.redirect(redirectTo);
 });
 
-// router.post("/token", (req, res) => {
-//   console.log("req>>", JSON.stringify(req.body));
-//   res.status(200).json({ a: "a" });
-// });
 
 router.get("/token", (req, res) => {
   const code = req.query.code;
