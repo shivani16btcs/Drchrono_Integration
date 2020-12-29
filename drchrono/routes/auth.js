@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/redirect", (req, res) => {
   redirectURL = req.query.redirect_uri || "https://622a8221b528.ngrok.io/token";
-  console.log("redirectURL>>", redirectURL);
+  // console.log("redirectURL>>", redirectURL);
   const redirectTo = `https://drchrono.com/o/authorize/?redirect_uri=${encodeURI(
     redirectURL
   )}&response_type=code&client_id=${encodeURI(
@@ -19,7 +19,7 @@ router.get("/redirect", (req, res) => {
 router.get("/token", (req, res) => {
   const code = req.query.code;
   const query = req.query;
-  console.log("query>>", query);
+  // console.log("query>>", query);
 
   var postData = { 
     code:query.code,
@@ -38,7 +38,7 @@ router.get("/token", (req, res) => {
     for (key in postData) {
         encodedData += encodeURIComponent(key)+"="+encodeURIComponent(postData[key])+"&";
     }
-    console.log("encodedData>> "+encodedData);
+    // console.log("encodedData>> "+encodedData);
   axios
     .post("https://drchrono.com/o/token/", data=encodedData, {
         headers: headers
