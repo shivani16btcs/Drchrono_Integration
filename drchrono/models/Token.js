@@ -25,5 +25,5 @@ var tokenSchema = new mongoose.Schema({
     }
 
 })
-var Token = mongoose.model('Register', tokenSchema);
+var Token = mongoose.model('Token', tokenSchema);
 module.exports = Token;

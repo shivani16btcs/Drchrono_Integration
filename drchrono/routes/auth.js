@@ -5,7 +5,7 @@ const Token = require("../models/Token");
 const router = express.Router();
 
 router.get("/redirect", (req, res) => {
-  redirectURL = req.query.redirect_uri || "https://c45909755c0e.ngrok.io/token";
+  redirectURL = req.query.redirect_uri || "https://622a8221b528.ngrok.io/token";
   console.log("redirectURL>>", redirectURL);
   const redirectTo = `https://drchrono.com/o/authorize/?redirect_uri=${encodeURI(
     redirectURL
@@ -28,7 +28,7 @@ router.get("/token", (req, res) => {
   var postData = { 
     code:query.code,
     grant_type: "authorization_code",
-    redirect_uri: "https://c45909755c0e.ngrok.io/token",
+    redirect_uri: "https://622a8221b528.ngrok.io/token",
     client_id: "AePaxoRUYcWJAgXd0EkBJ5AdOoz5f2qLUnb4dXAq",
     client_secret:
       "HIy5nZ1BTFtNPZpGVDCczknq0YwQGrTLdFUIpobfRY8LNvDNi4Iattw9md7e3MTweZp0Prgli9R9UZqCTMQ2Uh3f2ME6SQywI6GQzU5HXEAR5b6Hz5tsuoNXNDy6V3ah",
@@ -51,19 +51,18 @@ router.get("/token", (req, res) => {
         headers: headers
       }
         )
-    .then((res) => {
+    .then(async(res) => {
       console.log("RESPONSE RECEIVED: ", res.data);
-    //   const Token = new Token({
-    //     accessToken: req.data.access_token,
-    //     refreshToken: req.data.refresh_token,
-    //     expireTime : req.data.expires_in,
-    //     scope:req.data.scope,
-    //     token_type:req.data.token_type
-    //   });
-    //   Token.save();
-    //     res.status(201).json({
-    //       message: "Post added successfully",
-    //     });
+     let token= await new Token(
+       {
+        accessToken: res.data.access_token,
+        refreshToken: res.data.refresh_token,
+        expireTime : res.data.expires_in,
+        scope:res.data.scope,
+        token_type:res.data.token_type
+      });
+      let p=await token.save();
+      console.log("token saved successfully"+p);
     })
     .catch((err) => {
       console.log("AXIOS ERROR: ", err);
