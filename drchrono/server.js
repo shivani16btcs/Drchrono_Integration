@@ -7,7 +7,7 @@ dotenv.config();
 const bodyParser = require('body-parser');
 const webhook = require('./routes/webhook');
 const auth = require('./routes/auth');
-//const appointment=require('./routes/appointment')
+const appointment=require('./routes/appointment')
 const cors=require('cors');
 
 server.use(cors({exposedHeaders:["Autorization"]}));
@@ -37,9 +37,9 @@ server.use((req, res, next) => {
 
   server.use('/', webhook);
   server.use('/',auth);
-  //server.use('/',appointment);
+  server.use('/',appointment);
 
-  let port = 1234;
+let port = 1234;
 server.listen(port, () => {
     console.log('Server is up and running on port number ' + port);
 });
