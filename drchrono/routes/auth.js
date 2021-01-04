@@ -5,7 +5,7 @@ const Token = require("../models/Token");
 const router = express.Router();
 
 router.get("/redirect", (req, res) => {
-  redirectURL = req.query.redirect_uri || "https://559ef306ba87.ngrok.io/token";
+  redirectURL = req.query.redirect_uri || "https://a5430cc16612.ngrok.io/token";
 //console.log("redirectURL>>", redirectURL);
   const redirectTo = `https://drchrono.com/o/authorize/?redirect_uri=${encodeURI(
     redirectURL
@@ -24,7 +24,7 @@ router.get("/token", (req, res) => {
   var postData = { 
     code:query.code,
     grant_type: "authorization_code",
-    redirect_uri: "https://559ef306ba87.ngrok.io/token",
+    redirect_uri: "https://a5430cc16612.ngrok.io/token",
     client_id: "AePaxoRUYcWJAgXd0EkBJ5AdOoz5f2qLUnb4dXAq",
     client_secret:
       "HIy5nZ1BTFtNPZpGVDCczknq0YwQGrTLdFUIpobfRY8LNvDNi4Iattw9md7e3MTweZp0Prgli9R9UZqCTMQ2Uh3f2ME6SQywI6GQzU5HXEAR5b6Hz5tsuoNXNDy6V3ah",
@@ -38,7 +38,7 @@ router.get("/token", (req, res) => {
     for (key in postData) {
         encodedData += encodeURIComponent(key)+"="+encodeURIComponent(postData[key])+"&";
     }
-    // console.log("encodedData>> "+encodedData);
+    console.log("encodedData>> "+encodedData);
   axios
     .post("https://drchrono.com/o/token/", data=encodedData, {
         headers: headers

@@ -5,9 +5,11 @@ const axios = require('axios');
 const router = express.Router();
 
 
+const accesstoken="0v64je9SEBMIIt1YHxV1l4ijgX7t1T";
+
 router.post('/appointment/create', async (req,res)=>{
     // console.log(req.body);
-    const access='xYJKfay8li3M91JRnWMrLcUH6NXCBO';
+    const access=accesstoken||'0v64je9SEBMIIt1YHxV1l4ijgX7t1T';
     const Authorization='Bearer '+access;
     const  headers= {
         'Content-Type': 'application/json',
@@ -20,7 +22,7 @@ router.post('/appointment/create', async (req,res)=>{
       }
         )
     .then(async(res) => {
-     console.log("RESPONSE RECEIVED: ", res.data.status_transitions[0].appointment);
+     console.log("RESPONSE RECEIVED: ", res.data.status_transitions[0].appointment); 
       let appointment= await new Appointment(
         {   appointment_id:res.data.status_transitions[0].appointment,
             doctor:res.data.doctor,
@@ -31,14 +33,15 @@ router.post('/appointment/create', async (req,res)=>{
             exam_room:res.data.exam_room,
             created_at:res.data.created_at
        });
-     p=await appointment.save();
+       p=appointment
+    //  p=await appointment.save();
     })
     .catch((err) => {
       console.log("AXIOS1 ERROR: ", err);
     });
 
     if(p){
-      console.log("Appointment save successfully");
+      console.log("DRchrono Appointment save successfully");
         return res.status(200).json({
             success:true,
             appointment:p
@@ -52,7 +55,7 @@ router.post('/appointment/create', async (req,res)=>{
     });
 
 
-//-----------------------------------------------
+//-------------------------------------------------------------
 
 
 
@@ -60,7 +63,7 @@ router.post('/appointment/create', async (req,res)=>{
 
     router.put('/appointment/update', async (req,res)=>{
       // console.log(req.body);
-      const access='ELqiU91Po8Nm4LxWsgHB7jyaUod2uP';
+      const access=accesstoken||'udGdOi8MOi6sPVjJ4m4AXKr4Ed4GoV';
       const Authorization='Bearer '+access;
       const  headers= {
           'Content-Type': 'application/json',
@@ -76,21 +79,21 @@ router.post('/appointment/create', async (req,res)=>{
       .then(async(res) => {
           p=1;
           
-       // console.log(res);
+
     //  const existing =await Appointment.findOne({appointment_id:id}) ;
     //  console.log("existing1>>"+existing);
-          // if(existing){
-          //   // existing.duration=re.body.duration,
-          //   // existing.data.scheduled_time=req.body.scheduled_time 
-          //  }
-          //  p=await existing.save();
+    //       if(existing){
+    //         // existing.duration=re.body.duration,
+    //         // existing.data.scheduled_time=req.body.scheduled_time 
+    //        }
+    //        p=await existing.save();
       })
       .catch((err) => {
         console.log("AXIOS1 ERROR: ", err);
       });
   
       if(p){
-        console.log("Appointment updated successfully");
+        console.log("DRchrono Appointment updated successfully");
           return res.status(200).json({
               success:true,
               appointment:"updated"
@@ -105,10 +108,10 @@ router.post('/appointment/create', async (req,res)=>{
   
 
 
-      //-------------------------------------------------
+//-------------------------------------------------
 
       router.delete('/appointment/delete', async (req,res)=>{
-        const access='ELqiU91Po8Nm4LxWsgHB7jyaUod2uP';
+        const access=accesstoken||'udGdOi8MOi6sPVjJ4m4AXKr4Ed4GoV';
         const Authorization='Bearer '+access;
         const  headers= {
             'Content-Type': 'application/json',
@@ -124,13 +127,14 @@ router.post('/appointment/create', async (req,res)=>{
         .then(async(res) => {
             p=1;
       //  p=await existing.save();
+
     })
     .catch((err) => {
       console.log("AXIOS1 ERROR: ", err);
     });
 
     if(p){
-      console.log("Appointment deleted ");
+      console.log(" DRchrono Appointment deleted ");
         return res.status(200).json({
             success:true,
             appointment:"deleted"
