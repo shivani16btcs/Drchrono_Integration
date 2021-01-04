@@ -24,20 +24,19 @@ router.post('/appointment/create', async (req,res)=>{
     .then(async(res) => {
      console.log("RESPONSE RECEIVED: ", res.data.status_transitions[0].appointment); 
       let appointment= await new Appointment(
-        {   appointment_id:res.data.status_transitions[0].appointment,
-            doctor:res.data.doctor,
-            duration:res.data.duration,
-            office:res.data.office,
-            patient:res.data.patient,
-            scheduled_time:res.data.scheduled_time,
-            exam_room:res.data.exam_room,
-            created_at:res.data.created_at
-       });
-       p=appointment
-    //  p=await appointment.save();
+        {   Dchrono_appointment_id:res.data.status_transitions[0].appointment,
+            Dchrono_doctor:res.data.doctor,
+            Dchrono_duration:res.data.duration,
+            Dchrono_office:res.data.office,
+            Dchrono_patient:res.data.patient,
+            Dchrono_scheduled_time:res.data.scheduled_time,
+            Dchrono_exam_room:res.data.exam_room,
+            Dchrono_created_at:res.data.created_at, 
+        });
+       p=appointment;
     })
     .catch((err) => {
-      console.log("AXIOS1 ERROR: ", err);
+      console.log("AXIOS1 ERROR: Appointment overlaps");
     });
 
     if(p){
@@ -108,7 +107,7 @@ router.post('/appointment/create', async (req,res)=>{
   
 
 
-//-------------------------------------------------
+//-----------------------------------------------------------------------
 
       router.delete('/appointment/delete', async (req,res)=>{
         const access=accesstoken||'udGdOi8MOi6sPVjJ4m4AXKr4Ed4GoV';
@@ -150,7 +149,7 @@ router.post('/appointment/create', async (req,res)=>{
 
 
 
-//----------------------------------------------------
+//----------------------------------------------------------------
 
 
 

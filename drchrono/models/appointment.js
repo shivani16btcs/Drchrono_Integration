@@ -1,45 +1,64 @@
 var mongoose = require('mongoose');
 
 var appointmentSchema = new mongoose.Schema({
-    appointment_id:{
+    Dchrono_appointment_id:{
         type:String, 
     },
-    patientName:{
+    Dchrono_patientName:{
         type:String,
     },
-    doctor:{
+    Dchrono_doctor:{
         type:String,
         required:true,
     },
 
-    duration:{
+    Dchrono_duration:{
         type:String,
        required:true,
     },
 
-    office:{
+    Dchrono_office:{
         type:String,
         required:true,
         
     },
   
-    patient:{
+    Dchrono_patient:{
         type:String,
        required:true,
     },
 
-    scheduled_time: {
+    Dchrono_scheduled_time: {
         type: String,
         required:true,
     },
 
-    exam_room:{
+    Dchrono_exam_room:{
         type: String,
         required:true,
     },
-    created_at:{
+    Dchrono_created_at:{
         type: String,
     },
+    startDate:{
+        type: String,
+    },
+    endDate:{
+        type: String,
+    },
+    offSet:{
+        type: String,
+    },
+    inVideoVisit:{
+        type: Boolean,
+    },
+    availableDays:{
+        type: Array,
+    },
+    repeatEveryWeek:{
+        type: String,
+    }
+
 })
 var Appointment = mongoose.model('appointment', appointmentSchema);
 

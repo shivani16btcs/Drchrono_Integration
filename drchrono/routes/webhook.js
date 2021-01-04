@@ -32,23 +32,28 @@ router.post("/webhook", async (req, res) => {
     req.headers &&
     req.headers["x-drchrono-event"] === "APPOINTMENT_CREATE"
   ) {
-    console.log(req.body.object.doctor);
     let appointment = await new Appointment({
-      appointment_id: req.body.object.id,
-      doctor: req.body.object.doctor,
-      duration: req.body.object.duration,
-      office: req.body.object.office,
-      patient: req.body.object.patient,
-      scheduled_time: req.body.object.scheduled_time,
-      exam_room: req.body.object.exam_room,
-      created_at: req.body.object.created_at,
+      Dchrono_appointment_id: req.body.object.id,
+      Dchrono_doctor: req.body.object.doctor,
+      Dchrono_duration: req.body.object.duration,
+      Dchrono_office: req.body.object.office,
+      Dchrono_patient: req.body.object.patient,
+      Dchrono_scheduled_time: req.body.object.scheduled_time,
+      Dchrono_exam_room: req.body.object.exam_room,
+      Dchrono_created_at: req.body.object.created_at,
+      startDate:Date.parse(req.body.object.scheduled_time),
+      endDate:Date.parse(req.body.object.scheduled_time)+(req.body.object.duration*60*1000),
+      // offSet:(req.body.object.scheduled_time.getTimezoneOffset()/60)+":"+(req.body.object.scheduled_time.getTimezoneOffset()%60),
+      inVideoVisit:req.body.object.is_virtual_base,
+      // availableDays:,
+      repeatEveryWeek:req.body.object.recurring_appointment,
     });
     let p = await appointment.save();
     if (p) {
       console.log("Appointment save successfully");
       return res.status(200).json({
         success: true,
-        appointment: p,
+        appointment: appointment,
       });
     } else {
       return res.status(409).json({
@@ -62,8 +67,8 @@ router.post("/webhook", async (req, res) => {
   ) {
     let myquery = {appointment_id: req.body.object.id };
     var newvalues = { $set: { 
-        duration:req.body.object.duration,
-          scheduled_time:req.body.object.scheduled_time 
+      Dchrono_duration:req.body.object.duration,
+      Dchrono_scheduled_time:req.body.object.scheduled_time.valueOf()
         } };
     Appointment.updateOne(myquery, newvalues) 
     .then(result => {
@@ -82,7 +87,7 @@ router.post("/webhook", async (req, res) => {
     req.headers &&
     req.headers["x-drchrono-event"] ==="APPOINTMENT_DELETE"
   ) {
-    Appointment.findOneAndRemove({ appointment_id: req.body.object.id }, function(err){
+    Appointment.findOneAndRemove({ Dchrono_appointment_id: req.body.object.id }, function(err){
         console.log("webhook delete"+err);
     });
 
